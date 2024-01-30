@@ -85,3 +85,173 @@ console.log('Time Elapesd: ${(t2 - t1) / 1000} seconds.')
    ㄴ 몇몇 빠른 알고리즘은 너무 빨라서 측정이 제대로 안 될 수 있음
 
 - 그럼 어떻게 측정하면 좋을까?
+
+= 컴퓨터가 처리하는 연산의 갯수를 세면 됨
+
+(예제)
+function addUpTo(n) {
+    return n * (n + 1) / 2;
+}
+  ㄴ 이 함수는 *, +, / 의 총 연산이 3번 일어남 
+
+function addUpTo(n) {
+    let total = 0;
+    for (let i = 1; i <= n; i++) {
+        total += 1;
+    }
+    return total;
+}
+  ㄴ 이 함수는 + 하나만 있지만 반복문 안에 있기 때문에 N번의 연산이 발생 ( =, ++ 이것도 연산임 )
+  ㄴ 이 함수의 연산 갯수는 5n + 2개 
+  ㄴ N이 커질수록 연산갯수가 늘어남 == 대략적으로 n으로 표기
+
+Big O = 대략적으로 숫자를 세는 것에 붙인 공식적 표현
+      = 입력된 내용이 늘어날 수록 알고리즘에 실행 시간이 어떻게 변하는 지 설명하는 공식적인 방식
+      = 입력의 크기와 실행시간의 관계
+      = 전반적인 추세에 주목함
+
+Big O의 정의
+
+N이 커질 수록 컴퓨터가 f(n)의 상수 곱하기 f(n)보다 간단한 연산을 덜 해야한다면 그 알고리즘을 O(f(n))이라고 표현함
+
+# 여러가지 옵션
+
+- f(n)이 선형이라면 (f(n) = n) => N값이 커질수록 실행시간이 증가
+- f(n)이 N의 제곱이면 (f(n) = n^2)
+- f(n)이 상수라면 (f(n) = 1)
+- f(n)이 완전히 다른 관계라면..
+
+(예제)
+function addUpTo(n) {
+    return n * (n + 1) / 2;
+}
+ ㄴ 항상 연산이 3개 == O(1)
+
+function addUpTo(n) {
+    let total = 0;
+    for (let i = 1; i <= n; i++) {
+        total += 1;
+    }
+    return total;
+}
+ ㄴ 연산의 갯수가 N의 곱과 연결되어 있음 == O(n)
+
+function countUpAndDown(n) {
+    console.log("Going up!");
+    for (let i = 0; i < n; i++){
+        console.log(i);
+    }
+    console.log("At the top\nGoing down...");
+    for (let j = n - 1; j >= 0; j--){
+        console.log(j);
+    }
+    console.log("Back down. Bye");
+}
+ ㄴ 이 함수에는 O(n)이 2개라서 2n으로 생각할 수 있지만 빅오 표기법으로는 O(n)
+
+function printAllPairs(n) {
+    for (var i = 0; i < n; i++){
+        for (var j = 0; j < n; j++){
+            console.log(i, j);
+        }
+    }
+}
+ ㄴ O(n)안에 O(n)이 있다면 => O(n^2)
+
+
+# 빅오 표기법 단순화 하기
+
+- 간단히 하기위한 사전지식
+  
+  · 상수는 중요하지 않음  (ex) O(2n) => O(n), O(500) => O(1), O(13n^2) => O(n^2)
+
+  · 작은 연산도 중요하지 않음 (ex) O(n + 10) => O(n), O(1000n + 50) => O(n), O(n^2 + 5n + 8) => O(n^2)
+
+1. 산수는 상수이고 사칙연산을 포함한다
+
+2. 변수 배정도 상수이다
+
+3. 인덱스를 사용해서 배열 엘리먼트를 접근하는 것 또는 객체를 다루고 데이터를 접근하기 위한 키가 있다면 그것도 상수다
+
+4. 루프가 있으면 복잡도가 루프의 길이 곱하기 루프안에 있는 연산들이다
+
+
+(예제)
+function logAtLeast5(n) {
+    for (var i = 1; i <= Math.max(5, n); i++) {
+        console.log(i);
+    }
+}
+ ㄴ 빅오는 O(n)
+
+function logAtMost5(n) {
+    for (var i = 1; i <= Math.min(5, n); i++) {
+        console.log(i);
+    }
+}
+ ㄴ 빅오는 O(1)
+
+퀴즈 1 
+
+Q1 O(n + 10) 단순화 = O(n) 
+Q2 O(100 * n) 단순화 = O(n)
+Q3 O(25) 단순화 = O(1)
+Q4 O(n^2 + n^3) 단순화 = O(n^3)
+Q5 O(n + n + n + n) 단순화 = O(n)
+
+퀴즈 2
+Q1 함수의 시간 복잡도
+
+function logUpTo(n) {
+    for (var i = 1; i <= n; i++) {
+        console.log(i);
+    }
+}
+ ㄴ O(n)
+
+Q2 함수의 시간 복잡도
+
+function logAtMost10(n) {
+    for (var i = 1; i <= Math.min(n, 10); i++) {
+        console.log(i);
+    }
+}
+ ㄴ O(1)
+
+Q3 함수의 시간 복잡도
+
+function logAtLeast10(n) {
+    for (var i = 1; i <= Math.max(n, 10); i++) {
+        console.log(i);
+    }
+}
+ ㄴ O(n)
+
+Q4 함수의 시간 복잡도
+
+function onlyElementsAtEvenIndex(array) {
+    var newArray = Array(Math.ceil(array.length / 2));
+    for (var i = 0; i < array.length; i++) {
+        if (i % 2 === 0) {
+            newArray[i / 2] = array[i];
+        }
+    }
+    return newArray;
+}
+ ㄴ O(n)
+
+Q5 함수의 시간 복잡도
+
+function subtotals(array) {
+    var subtotalArray = Array(array.length);
+    for (var i = 0; i < array.length; i++) {
+        var subtotal = 0;
+        for (var j = 0; j <= i; j++) {
+            subtotal += array[j];
+        }
+        subtotalArray[i] = subtotal;
+    }
+    return subtotalArray;
+}
+ ㄴ O(n^2)
+

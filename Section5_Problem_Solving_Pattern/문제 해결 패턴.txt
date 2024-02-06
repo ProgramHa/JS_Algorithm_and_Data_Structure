@@ -106,3 +106,70 @@ function vaildAnagram(first, second){
     }
     return true
 }
+
+
+# 다중 포인터 패턴 (Multiple Pointers)
+
+ - 이 패턴의 개념은 인덱스나 위치에 해당하는 포인터나 값을 만든 다름 특정 조건에 따라 중간지점에서
+   시작 지점이나 끝 지점이나 양쪽 지점을 향해 이동시키는 것
+
+(예제1)
+정렬된 배열을 취하는 sumZero라는 함수를 작성하시오
+합계가 0인 첫 번째 쌍에서 한 숫자를 가져와 다른 숫자에 더하면 0이 되는 쌍을 찾아야 함
+
+sumZero([-3,-2,-1,0,1,2,3]) // [-3,3]
+sumZero([-2,0,1,3]) // undefined
+sumZero([1,2,3])    // undefined
+
+
+% Naive Solution
+
+function sumZero(arr) {
+    for(let i = 0; i < arr.length; i++) {
+        for(let j = j+1; j < arr.length; j++) {
+            if(arr[i] + arr[j] === 0) {
+                return [arr[i], arr[j]];
+            }
+        }
+    }
+}
+시간 복잡도 = O(n^2), 공간 복잡도 = O(1)
+
+% 다중 포인터 패턴이 사용된 코드
+
+function sumZero(arr) {
+    let left = 0;
+    let right = arr.length - 1;
+    while(left < right) {
+        let sum = arr[left] + arr[right];
+        if(sum === 0) {
+            return [arr[left], arr[right]];
+        } else if(sum > 0) {
+            right--;
+        } else {
+            left++;
+        }
+    }
+}
+시간 복잡도 = O(n), 공간 복잡도 = O(1)
+
+
+(예제2) countUniqueValues
+정렬된 배열을 전달하면 해당 배열의 고유한 값의 개수를 반환하도록 하는 함수 작성
+음수가 포함될 수 있지만 정렬된 배열임
+
+countUniqueValues([1,1,1,1,1,2])    // 2
+countUniqueValues([1,2,3,4,4,4,7,7,12,12,13])   // 7
+countUniqueValues([])   // 0
+countUniqueValues([-2,-1,-1,0,1])    // 4
+
+
+function countUniqueValues(arr) {
+    var = i = 0;
+    for(var j = 1; j < arr.length; j++){
+        if(arr[i] !== arr[j]) {
+            i++;
+            arr[i] = arr[j]
+        }
+    }
+}

@@ -62,3 +62,82 @@ Q1. 자바스크립트는 함수를 호출하기 위해 어떤 도구를 사용�
 Q2. Base Case는 무엇인가?
 
  ㄴ 재귀가 끝난 상태
+
+
+(예제) 두 번째 재귀 함수
+
+function sumRange(num) {
+    if(num === 1) return 1;
+    return num + sumRange(num-1);
+}
+
+# 팩토리얼 만들기
+
+% 반복문
+
+function factorial(num) {
+    let total = 1;
+    for(let i = num; i > 1; i--) {
+        total *= i
+    }
+    return total;
+}
+
+% 재귀적 방법
+
+function factorial(num) {
+    if(num === 1) return 1;
+    return num * factorial(num - 1);
+}
+
+
+# 재귀함수를 사용할 때 발생하는 문제점들
+
+ - 종료 조건 없음   - 무한히 자기 자신을 호출
+
+ - 잘못된 값 반환 또는 반환을 잊음  - 마찬가지로 무한히 자기 자신을 호출
+
+ - 무한히 재귀하면 스택 오버플로우가 발생
+
+
+# Helper 메소드 재귀
+
+ - 배열이나 데이터 목록을 컴파일 할 때 사용
+
+(예제1)
+function outer(input) {     // 메인 외부 함수
+
+    var outerScopedVariable = []
+
+    function helper (helperInput) {     // 내부 재귀 함수
+        // modify the outerScopedVariable
+        helper(helperInput--)
+    }
+
+    helper(input)
+
+    return outerScopedVariable;
+}
+
+(예제2)
+function collectOddValues(arr) {
+
+    let result = []
+
+    function helper (helperInput) {     // 내부 재귀 함수
+        if(helperInput.length === 0) {
+            return;
+        }
+
+        if(helperInput[0] % 2 !== 0) {
+            result.push(helperInput[0])
+        }
+
+        helper(helperInput.slice[1])
+    }
+
+    helper(arr)
+
+    return result;
+}
+

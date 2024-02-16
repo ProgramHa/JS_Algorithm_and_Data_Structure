@@ -122,7 +122,7 @@ function outer(input) {     // 메인 외부 함수
 (예제2)
 function collectOddValues(arr) {
 
-    let result = []
+    let result = []     // 배열이 초기화 되지 않게 하기위해 헬퍼 함수 외부에 배열 선언
 
     function helper (helperInput) {     // 내부 재귀 함수
         if(helperInput.length === 0) {
@@ -141,3 +141,28 @@ function collectOddValues(arr) {
     return result;
 }
 
+
+# 순수 재귀
+
+ - 배열을 사용하고 헬퍼 메소트 없이 순수 재귀 솔루션을 사용하는 경우에, 배열을 복사하는 slice, spread 연산자, concat같은
+   메소드를 사용 할 수있음 = 배열 변경 필요 X
+
+ - 문자열은 변경할 수 없으니 slice나 substrin을 사용해 사본을 생성
+
+ - 객체의 경우 Object.assign이나 spread 연산자를 사용하는 게 유용
+
+(예제1)
+function collectOddValues(arr) {
+    let newArr = [];    // 배열이 초기화 될 수 있도록 내부에 선언
+
+    if(arr.length === 0) {
+        return newArr;
+    }
+
+    if(arr[0] % 2 !== 0) {
+        newArr.push(arr[0]);
+    }
+
+    newArr = newArr.concat(collectOddValues(arr.slice(1)));     // 배열을 합치는(concatenate) 내부 함수 사용 
+    return newArr;                                              // arr.slice(1)로 index 0을 제외한 다음 배열
+}

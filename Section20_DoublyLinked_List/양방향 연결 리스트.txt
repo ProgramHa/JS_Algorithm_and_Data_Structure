@@ -49,3 +49,37 @@ pop 의사코드
  - 연결 리스트의 길이 -1
 
  - pop한 값 반환
+
+shift 의사코드
+
+ - 만약 head가 null이면(또는 리스트 길이가 0이면) undefined를 반환
+
+ - 아니라면 head값을 변수에 저장 (oldHead)
+
+ - 만약 리스트의 길이가 1이라면 head와 tail을 null로 설정
+
+ - head값을 이전 head값으로 설정
+
+ - head값의 prev값을 null로 설정
+
+ - oldHead의 next값을 null로 설정
+
+- 연결 리스트의 길이 -1
+
+ - shift한 값 반환
+
+unshift 의사코드
+
+ - 값을 가지는 새로운 노드 생성
+
+ - 만약 리스트의 길이가 0이면 head와 tail을 새로 생성된 노드로 설정
+
+ - 아니라면 현재 headd의 prev값을 새로운 노드가 되도록 설정
+
+ - 새로운 노드의 next값을 현재 head로 설정
+
+ - head를 새로운 노드로 설정
+
+ - 리스트의 길이 +1
+
+ - 리스트를 반환
